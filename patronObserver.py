@@ -1,8 +1,6 @@
-# Definición de la clase Sujeto (Observable)
-class SujetoNoticias:
+class Observable:
     def __init__(self):
         self._observadores = []
-        self._ultima_noticia = None
 
     def agregar_observador(self, observador):
         self._observadores.append(observador)
@@ -10,37 +8,37 @@ class SujetoNoticias:
     def eliminar_observador(self, observador):
         self._observadores.remove(observador)
 
-    def notificar_observadores(self):
+    def notificar_observadores(self, mensaje):
         for observador in self._observadores:
-            observador.actualizar(self._ultima_noticia)
-
-    def publicar_noticia(self, noticia):
-        self._ultima_noticia = noticia
-        self.notificar_observadores()
+            observador.actualizar(mensaje)
 
 
-# Definición de la clase Observador
-class ObservadorNoticias:
-    def actualizar(self, noticia):
+class Observador:
+    def actualizar(self, mensaje):
         pass
 
 
-# Implementación concreta del Observador
-class Suscriptor(ObservadorNoticias):
-    def __init__(self, nombre):
-        self.nombre = nombre
-
-    def actualizar(self, noticia):
-        print(f'{self.nombre} ha recibido la noticia: "{noticia}"')
+class ObservadorConcreto(Observador):
+    def actualizar(self, mensaje):
+        print("Observador recibió el mensaje:", mensaje)
 
 
-# Uso del patrón Observer
-sujeto_noticias = SujetoNoticias()
+# Uso del patrón Observable
+observable = Observable()
+observador1 = ObservadorConcreto()
+observador2 = ObservadorConcreto()
+observador3 = ObservadorConcreto()
 
-suscriptor1 = Suscriptor("Suscriptor 1")
-suscriptor2 = Suscriptor("Suscriptor 2")
+# Registro de Observadores
+observable.agregar_observador(observador1)
+observable.agregar_observador(observador2)
+observable.agregar_observador(observador3)
 
-sujeto_noticias.agregar_observador(suscriptor1)
-sujeto_noticias.agregar_observador(suscriptor2)
+# Notificación a los Observadores
+observable.notificar_observadores("¡Hola, mundo!")
 
-sujeto_noticias.publicar_noticia("¡Nueva noticia emocionante!")
+# Elimina un observador
+observable.eliminar_observador(observador3)
+
+# Notificación a los observadores despues de elimnar 1
+observable.notificar_observadores("¡Hola mundo de nuevo!")
