@@ -14,3 +14,7 @@ numeros = [1, 2, 3, 4, 5]
 suma = reduce(lambda x, y: x + y, numeros)
 print(suma)
 
+# Ejemplo de distinct, elimina elementos duplicados de una lista
+numeros = [1, 2, 2, 3, 3, 4, 5, 5]
+unicos = list(set(numeros))
+print(unicos)
