@@ -8,7 +8,7 @@ class SujetoNoticias:
 
     def _publicar_noticias(self, observer, scheduler):
         def on_dispose():
-            pass  # Puedes agregar lógica de limpieza si es necesario
+            pass
 
         observer.on_next(self._ultima_noticia)
         return on_dispose
@@ -18,7 +18,7 @@ class SujetoNoticias:
         self.observable.subscribe(lambda x: print(f"Noticia publicada: {x}"))
 
 
-# Implementación concreta del Observador
+# Implementación Observador
 class Suscriptor:
     def __init__(self, nombre):
         self.nombre = nombre
@@ -27,7 +27,7 @@ class Suscriptor:
         observable.subscribe(lambda x: print(f'{self.nombre} ha recibido la noticia: "{x}"'))
 
 
-# Uso del patrón Observer con RxPY
+# Uso del patrón Observer con la librería RxPY
 sujeto_noticias = SujetoNoticias()
 
 suscriptor1 = Suscriptor("Suscriptor 1")
